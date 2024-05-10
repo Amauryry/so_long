@@ -6,29 +6,52 @@
 /*   By: aberion <aberion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 17:07:23 by aberion           #+#    #+#             */
-/*   Updated: 2024/05/09 18:56:04 by aberion          ###   ########.fr       */
+/*   Updated: 2024/05/10 19:24:36 by aberion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int main()
+int close_window(void *param)
 {
-    void *mlx_ptr;
-    void *win_ptr;
-
-    // Initialize the MiniLibX
-    mlx_ptr = mlx_init();
+    t_mlx *mlx = (t_mlx *)param;
     
-    // Create a new window
-    win_ptr = mlx_new_window(mlx_ptr, 800, 600, "So Long");
-    __builtin_printf("Window pointer: %p\n", win_ptr);
+    if (mlx && mlx->mlx_p && mlx->win_p)
+    {
+        mlx_destroy_window(mlx->mlx_p, mlx->win_p);
+        free(mlx);
+    }
+    exit(0);
+    return (0);
+}
 
-    // Setup event handlers
-    mlx_key_hook(win_ptr, handle_key, mlx_ptr);
-    mlx_hook(win_ptr, 17, 0L, close_window, mlx_ptr); // 17 is the window close event
+int main(void)
+{
+    t_mlx *mlx;
 
-    // Main loop to keep the window open
-    mlx_loop(mlx_ptr);
+    mlx = (t_mlx *)malloc(sizeof(t_mlx));
+    if (!mlx)
+        return (1);
+
+
+    mlx->mlx_p = mlx_init(); // Initialiser la bibliothèque graphique
+    if (!mlx->mlx_p)
+    {
+        free(mlx);
+        return (1); 
+    }
+    mlx->win_p = mlx_new_window(mlx->mlx_p, 800, 600, "Ma première fenêtre MiniLibX"); // Créer une nouvelle fenêtre
+    if (!mlx->win_p)
+    {
+        free(mlx);
+        return (1); // Gestion d'erreur si mlx_new_window échoue
+    }
+    
+    mlx_hook(mlx->win_p, 17, 0, close_window, mlx); // Gérer l'événement de fermeture de fenêtre
+
+    mlx_loop(mlx->mlx_p);
+    free(mlx->mlx_p);
+    free(mlx->win_p);
+    free(mlx);
     return (0);
 }

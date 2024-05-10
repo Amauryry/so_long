@@ -15,7 +15,7 @@ NAME = so_long
 
 # Compilateur
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g3
 
 # Include directories
 INCLUDES = -I ./libft -I ./ft_printf -I ./minilibx-linux
@@ -27,7 +27,7 @@ SRC_DIR = src/
 OBJ_DIR = obj/
 
 # Source files and object files
-SRC = so_long.c handle_window.c
+SRC = so_long.c 
 OBJ = $(SRC:.c=.o)
 
 # Rules

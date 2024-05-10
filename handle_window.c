@@ -6,11 +6,12 @@
 /*   By: aberion <aberion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 18:48:08 by aberion           #+#    #+#             */
-/*   Updated: 2024/05/09 18:57:46 by aberion          ###   ########.fr       */
+/*   Updated: 2024/05/10 16:25:22 by aberion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+#include <X11/X.h>
 
 int handle_key(int key, void *param)
 {
@@ -19,9 +20,11 @@ int handle_key(int key, void *param)
     return (0);
 }
 
-int close_window(void *param, void *mlx_ptr)
+int close_window(void *win_pointeur, void *mlx_ptr)
 {
     // Close the window and terminate the main loop
-    mlx_destroy_window(param, mlx_ptr);
+    mlx_destroy_window(&mlx_ptr, &win_pointeur);
+    mlx_destroy_display(mlx_ptr);
+    free(mlx_ptr);
     exit(0);
 }
