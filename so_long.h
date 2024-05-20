@@ -6,7 +6,7 @@
 /*   By: aberion <aberion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 18:10:20 by aberion           #+#    #+#             */
-/*   Updated: 2024/05/10 17:58:40 by aberion          ###   ########.fr       */
+/*   Updated: 2024/05/20 14:56:44 by aberion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,12 @@
 
 # include "libft/libft.h"
 # include "ft_printf/src/ft_printf.h"
+# include "get_next_line/get_next_line.h"
 # include "minilibx-linux/mlx_int.h"
 # include "minilibx-linux/mlx.h"
 # include <stdio.h>
 # include <stdlib.h>
+# include "keys.h"
 
 
 
@@ -76,6 +78,7 @@ typedef struct s_game
 }	t_game;
 
 int handle_key(int key, void *param);
+int check_map(char **argv);
 t_game	*init_game(t_game *game, char *str);
 
 #endif

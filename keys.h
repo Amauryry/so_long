@@ -1,30 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_window.c                                    :+:      :+:    :+:   */
+/*   keys.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aberion <aberion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/09 18:48:08 by aberion           #+#    #+#             */
-/*   Updated: 2024/05/15 08:48:57 by aberion          ###   ########.fr       */
+/*   Created: 2024/05/20 14:56:09 by aberion           #+#    #+#             */
+/*   Updated: 2024/05/20 14:57:42 by aberion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
-#include <X11/X.h>
+#ifndef KEYS_H
 
-int handle_key(int key, void *param)
-{
-    (void) key;
-    (void) param;
-    return (0);
-}
+#define ESC_KEY 65307
 
-int close_window(void *win_pointeur, void *mlx_ptr)
-{
-    // Close the window and terminate the main loop
-    mlx_clear_window(&mlx_ptr, &mlx_ptr);
-    mlx_destroy_window(&mlx_ptr, &win_pointeur);
-    mlx_destroy_display(mlx_ptr);
-    exit(0);
-}
+#endif

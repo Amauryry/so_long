@@ -18,7 +18,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -g3
 
 # Include directories
-INCLUDES = -I ./libft -I ./ft_printf -I ./minilibx-linux
+INCLUDES = -I ./libft -I ./ft_printf -I ./minilibx-linux -I ./get_next_line
 
 # Library paths
 LFLAGS = -L ./libft -lft -L ./ft_printf -lftprintf -L ./minilibx-linux -lmlx -lXext -lX11 -lm -lz
@@ -27,7 +27,7 @@ SRC_DIR = src/
 OBJ_DIR = obj/
 
 # Source files and object files
-SRC = so_long.c 
+SRC = so_long.c check_map.c get_next_line/get_next_line.c get_next_line/get_next_line_utils.c
 OBJ = $(SRC:.c=.o)
 
 # Rules
