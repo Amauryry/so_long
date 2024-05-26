@@ -10,8 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_printf/src/ft_printf.h"
 #include "so_long.h"
 #include "stdbool.h"
+#include <stdio.h>
 
 
 bool back_tracking(char **tab_map, int x, int y, int *nb_c)
@@ -139,15 +141,18 @@ int check_map(char **argv)
     }
     int rows = 0, cols = 0, current_col = 0;
     char *line;
+    
+
     while ((line = get_next_line(fd)) != NULL)
     {   
         if (cols == 0)
-        {
             cols = ft_strlen(line) - 1; // Exclure '\n'
-        }
         current_col = ft_strlen(line) - 1;
-        if (cols != current_col)
-                return 1;
+        if (cols != current_col && ((line = get_next_line(fd)) != NULL))
+        {
+            perror("cols");
+            return 1;
+        }
         rows++;
         free(line);
     }
@@ -199,18 +204,18 @@ int check_map(char **argv)
         return 1;
     if (shall_i_pass(tab_map, rows, cols) == 0)
         return 1;
-    i = 0;
-    while (i < rows)
-    {
-        j = 0;
-        while (j < cols)
-        {
-            ft_printf("%c", tab_map[i][j]);
-            j++;
-        }
-        ft_printf("\n");
-        i++;
-    }
+    // i = 0;
+    // while (i < rows)
+    // {
+    //     j = 0;
+    //     while (j < cols)
+    //     {
+    //         ft_printf("%c", tab_map[i][j]);
+    //         j++;
+    //     }
+    //     ft_printf("\n");
+    //     i++;
+    // }
     i = 0;
     while (i < rows)
     {

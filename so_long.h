@@ -22,6 +22,9 @@
 # include <stdlib.h>
 # include "keys.h"
 
+#define IMG_SIZE 32
+#define WIN_WIDTH 800
+#define WIN_HEIGHT 600
 
 
 typedef struct s_texture
@@ -50,35 +53,39 @@ typedef struct s_count
 
 typedef struct s_info
 {
-	int			count_mouvements;
-	t_point		*dimensions;
-	t_count		*info;
-	int			last_mouvement;
+	int	x;
+	int y;
+	int			count_move;
 	int			left_items;
-	t_point		player;
 }	t_info;
 
 typedef struct s_map
 {
-	t_info	*info;
 	char	**map;
 	char	*name;
+	int	rows;
+	int cols;
+	int tile_width;
+	int tile_height;
 }	t_map;
 
 typedef struct s_mlx
 {
 	void		*mlx_p;
 	void		*win_p;
+	int width; 
+	int height;
 }	t_mlx;
 
 typedef struct s_game
 {
 	t_map	*map;
 	t_mlx	*mlx;
+	t_info *info;
 }	t_game;
 
-int handle_key(int key, void *param);
 int check_map(char **argv);
-t_game	*init_game(t_game *game, char *str);
+int init_map(char **argv, t_map *map);
+void draw_map(t_game *game);
 
 #endif

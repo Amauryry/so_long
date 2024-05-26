@@ -27,7 +27,7 @@ SRC_DIR = src/
 OBJ_DIR = obj/
 
 # Source files and object files
-SRC = so_long.c check_map.c get_next_line/get_next_line.c get_next_line/get_next_line_utils.c
+SRC = so_long.c check_map.c get_next_line/get_next_line.c get_next_line/get_next_line_utils.c init.c
 OBJ = $(SRC:.c=.o)
 
 # Rules

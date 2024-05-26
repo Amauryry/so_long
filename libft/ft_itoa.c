@@ -44,11 +44,9 @@ char	*ft_itoa(int n)
 {
 	int				digit;
 	unsigned int	un;
-	int				i;
 	char			*res;
 
 	digit = count_digit(n);
-	i = 0;
 	if (n < 0)
 	{
 		un = -n;

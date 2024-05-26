@@ -1,53 +1,89 @@
-// /* ************************************************************************** */
-// /*                                                                            */
-// /*                                                        :::      ::::::::   */
-// /*   init.c                                             :+:      :+:    :+:   */
-// /*                                                    +:+ +:+         +:+     */
-// /*   By: aberion <aberion@student.42.fr>            +#+  +:+       +#+        */
-// /*                                                +#+#+#+#+#+   +#+           */
-// /*   Created: 2024/05/10 17:35:10 by aberion           #+#    #+#             */
-// /*   Updated: 2024/05/10 17:50:58 by aberion          ###   ########.fr       */
-// /*                                                                            */
-// /* ************************************************************************** */
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aberion <aberion@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/10 17:35:10 by aberion           #+#    #+#             */
+/*   Updated: 2024/05/10 17:50:58 by aberion          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-// #include "so_long.h"
+#include "ft_printf/src/ft_printf.h"
+#include "libft/libft.h"
+#include "so_long.h"
 
-// void	ft_free_struct(t_game *game)
-// {
-// 	if (game->map)
-// 		ft_free_map(game);
-// 	if (game->mlx)
-// 		ft_free_mlx(game);
-// 	free(game);
-// }
+int init_map(char **argv, t_map *map)
+{
+    int fd;
+    int i;
+    int j;
 
-// void	ft_error(char *str)
-// {
-// 	ft_printf("Error \n");
-// 	ft_printf("%s", str);
-// 	exit(0);
-// }
-
-// void	ft_error_free(char *str, t_game *game)
-// {
-// 	ft_printf("\nError \n");
-// 	ft_printf("%s", str);
-// 	ft_free_struct(game);
-// 	exit (0);
-// }
-
-// t_game	*init_game(t_game *game, char *str)
-// {
-// 	game = malloc(sizeof(t_game));
-// 	if (!game)
-// 		ft_error("Problem while allocating structure game !");
-// 	game->map = NULL;
-// 	game->mlx = NULL;
-// 	game->map = malloc(sizeof(t_map));
-// 	game->mlx = malloc(sizeof(t_mlx));
-// 	if (!game->map || !game->mlx)
-// 		ft_error_free("Problem while allocating game in-structures !", game);
-// 	init_map(game, str);
-// 	init_mlx(game);
-// 	return (game);
-// }
+    
+    fd = open(argv[1], O_RDONLY);
+    if (fd < 0)
+    {
+        perror("Error opening file");
+        return 1;
+    }
+    int rows = 0, cols = 0;
+    char *line;
+    while ((line = get_next_line(fd)) != NULL)
+    {   
+        if (cols == 0)
+            cols = ft_strlen(line) - 1;
+        rows++;
+        free(line);
+    }
+    close(fd);
+    map->rows = rows;
+    map->cols = cols;
+    map->map = (char **)malloc(rows * sizeof(char *));
+    if (!map->map)
+        return 1;
+    i = 0;
+    while (i < rows)
+    {
+        map->map[i] = (char *)malloc(cols * sizeof(char));
+        if (!map->map[i])
+        {
+            j = 0;
+            while (j < i)
+            {
+                free(map->map[j]);
+                j++;
+            }
+            free(map->map);
+            return 1;
+        }
+        i++;
+    }
+    fd = open(argv[1], O_RDONLY);
+    if (fd < 0)
+    {
+        perror("Error opening file");
+        i = 0;
+        while (i < rows)
+        {
+            free(map->map[i]);
+            i++;
+        }
+        free(map->map);
+        return 1;
+    }
+    i = 0;
+    while ((line = get_next_line(fd)) != NULL)
+    {
+        j = 0;
+        while (j < cols)
+        {
+            map->map[i][j] = line[j];
+            j++;
+        }
+        i++; 
+        free(line);
+    }
+    close(fd);
+    return 0;
+}
