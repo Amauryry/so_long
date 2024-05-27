@@ -6,7 +6,7 @@
 /*   By: aberion <aberion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 15:49:02 by aberion           #+#    #+#             */
-/*   Updated: 2023/11/16 18:14:50 by aberion          ###   ########.fr       */
+/*   Updated: 2024/05/27 08:07:48 by aberion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	count_digit(int n)
 	return (i);
 }
 
-char	*norminette_killer(unsigned int un, char *res, int digit, int n)
+char	*norminette_killerr(unsigned int un, char *res, int digit, int n)
 {
 	if (n < 0)
 		res[0] = '-';
@@ -63,5 +63,5 @@ char	*ft_itoa(int n)
 		res[0] = '0';
 		return (res);
 	}
-	return (norminette_killer(un, res, digit, n));
+	return (norminette_killerr(un, res, digit, n));
 }

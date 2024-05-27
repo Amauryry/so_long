@@ -6,7 +6,7 @@
 /*   By: aberion <aberion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 15:07:37 by aberion           #+#    #+#             */
-/*   Updated: 2024/01/10 17:57:12 by aberion          ###   ########.fr       */
+/*   Updated: 2024/05/27 10:10:13 by aberion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,22 +54,24 @@ char	*stash_to_line(char **stash)
 	char	*line;
 
 	line_l = 0;
-	i = -1;
+	i = 0;
 	while ((*stash)[line_l] != '\n' && (*stash)[line_l])
 		line_l++;
-	if ((*stash)[line_l] == '\n')
-		line = malloc(sizeof(char) * (line_l + 2));
-	else
-		line = malloc(sizeof(char) * (line_l + 1));
+	line = malloc(sizeof(char) * (line_l + 2));
 	if (!line)
 		return (NULL);
-	while (i++ < line_l)
+	while (i < line_l)
+	{
 		line[i] = (*stash)[i];
+		i++;
+	}
 	if ((*stash)[line_l] == '\n')
 	{
 		line[line_l] = '\n';
 		line[line_l + 1] = 0;
 	}
+	else
+		line[line_l] = 0;
 	return (line);
 }
 

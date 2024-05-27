@@ -6,7 +6,7 @@
 /*   By: aberion <aberion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 18:10:20 by aberion           #+#    #+#             */
-/*   Updated: 2024/05/20 14:56:44 by aberion          ###   ########.fr       */
+/*   Updated: 2024/05/27 13:52:28 by aberion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,36 +20,21 @@
 # include "minilibx-linux/mlx.h"
 # include <stdio.h>
 # include <stdlib.h>
+#include "stdbool.h"
 # include "keys.h"
 
 #define IMG_SIZE 32
 #define WIN_WIDTH 800
 #define WIN_HEIGHT 600
 
-
-typedef struct s_texture
+typedef struct s_assets
 {
-	void	*t_collectibles;
-	void	*t_exit;
-	void	*t_ground;
-	void	*t_player;
-	void	*t_wall;
-}	t_texture;
-
-typedef struct s_point
-{
-	int	x;
-	int	y;
-}	t_point;
-
-typedef struct s_count
-{
-	int	c_collectibles;
-	int	c_exit;
-	int	c_ground;
-	int	c_player;
-	int	c_wall;
-}	t_count;
+	void *grass;
+	void *wall;
+    void *coin;
+    void *exit;
+    void *chara;
+}	t_assets;
 
 typedef struct s_info
 {
@@ -65,8 +50,6 @@ typedef struct s_map
 	char	*name;
 	int	rows;
 	int cols;
-	int tile_width;
-	int tile_height;
 }	t_map;
 
 typedef struct s_mlx
@@ -75,6 +58,7 @@ typedef struct s_mlx
 	void		*win_p;
 	int width; 
 	int height;
+	t_assets assets;
 }	t_mlx;
 
 typedef struct s_game
@@ -85,7 +69,14 @@ typedef struct s_game
 }	t_game;
 
 int check_map(char **argv);
-int init_map(char **argv, t_map *map);
+void init_map(char **argv, t_map *map);
 void draw_map(t_game *game);
+char **get_raw_map(char *map_path);
+char    *ft_realloc(char *ptr, size_t size);
+void free_tab(char **tab);
+void init_info(t_game *game);
+void	free_resources(t_game *game);
+bool back_tracking(char **tab_map, int x, int y, int *nb_c);
+int shall_i_pass(char **tab_map, int rows, int cols);
 
 #endif
