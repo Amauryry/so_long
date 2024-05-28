@@ -27,6 +27,13 @@
 #define WIN_WIDTH 800
 #define WIN_HEIGHT 600
 
+typedef struct s_counters
+{
+	int	checker_p;
+	int	checker_e;
+	int	checker_c;
+}	t_counters;
+
 typedef struct s_assets
 {
 	void *grass;
@@ -78,5 +85,10 @@ void init_info(t_game *game);
 void	free_resources(t_game *game);
 bool back_tracking(char **tab_map, int x, int y, int *nb_c);
 int shall_i_pass(char **tab_map, int rows, int cols);
+void	load_images(t_mlx *mlx);
+int	check_and_init(int argc, char **argv, t_game **game);
+int	allocate_game_resources(t_game **game_ptr);
+int	key_press(int keycode, t_game *game);
+int	close_window(void *param);
 
 #endif

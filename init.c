@@ -64,3 +64,67 @@ void	init_info(t_game *game)
 	game->mlx->width = 0;
 	game->mlx->height = 0;
 }
+
+void	load_images(t_mlx *mlx)
+{
+	mlx->assets.grass = mlx_xpm_file_to_image(mlx->mlx_p, "assets/grass.xpm",
+			&mlx->width, &mlx->height);
+	mlx->assets.wall = mlx_xpm_file_to_image(mlx->mlx_p, "assets/wall.xpm",
+			&mlx->width, &mlx->height);
+	mlx->assets.coin = mlx_xpm_file_to_image(mlx->mlx_p, "assets/coin.xpm",
+			&mlx->width, &mlx->height);
+	mlx->assets.exit = mlx_xpm_file_to_image(mlx->mlx_p, "assets/exit.xpm",
+			&mlx->width, &mlx->height);
+	mlx->assets.chara = mlx_xpm_file_to_image(mlx->mlx_p, "assets/char.xpm",
+			&mlx->width, &mlx->height);
+	if (!mlx->assets.grass || !mlx->assets.wall || !mlx->assets.coin
+		|| !mlx->assets.exit || !mlx->assets.chara)
+	{
+		perror("Error\nError loading one or more images");
+		exit(1);
+	}
+}
+
+int	allocate_game_resources(t_game **game_ptr)
+{
+	t_game	*game;
+
+	game = (t_game *)malloc(sizeof(t_game));
+	if (!game)
+		return (1);
+	game->map = (t_map *)malloc(sizeof(t_map));
+	if (!game->map)
+		return (1);
+	game->info = (t_info *)malloc(sizeof(t_info));
+	if (!game->info)
+		return (1);
+	game->mlx = (t_mlx *)malloc(sizeof(t_mlx));
+	if (!game->mlx)
+		return (1);
+	game->mlx->mlx_p = mlx_init();
+	if (!game->mlx->mlx_p)
+		return (1);
+	*game_ptr = game;
+	return (0);
+}
+
+int	check_and_init(int argc, char **argv, t_game **game)
+{
+	if (argc < 2)
+	{
+		perror("Error\nYou should try with a map (");
+		return (1);
+	}
+	if (check_map(argv) != 0)
+	{
+		perror("Error\ntry a viable map maybe ?(");
+		return (1);
+	}
+	if (allocate_game_resources(game) != 0)
+	{
+		free_resources(*game);
+		perror("Error\nAllocating error )");
+		return (1);
+	}
+	return (0);
+}
