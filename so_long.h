@@ -6,7 +6,7 @@
 /*   By: aberion <aberion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 18:10:20 by aberion           #+#    #+#             */
-/*   Updated: 2024/05/29 12:03:59 by aberion          ###   ########.fr       */
+/*   Updated: 2024/05/29 13:01:32 by aberion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,5 +104,6 @@ int				check_and_init(int argc, char **argv, t_game **game);
 int				allocate_game_resources(t_game **game_ptr);
 int				key_press(int keycode, t_game *game);
 int				close_window(void *param);
+int				check_file_extension(char *filename, char *extension);
 
 #endif

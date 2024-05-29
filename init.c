@@ -6,7 +6,7 @@
 /*   By: aberion <aberion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 17:35:10 by aberion           #+#    #+#             */
-/*   Updated: 2024/05/27 12:01:33 by aberion          ###   ########.fr       */
+/*   Updated: 2024/05/29 12:54:00 by aberion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ int	check_and_init(int argc, char **argv, t_game **game)
 		perror("Error\nYou should try with a map (");
 		return (1);
 	}
-	if (check_map(argv) != 0)
+	if (check_map(argv) != 0 || (!check_file_extension(argv[1], ".ber")))
 	{
 		perror("Error\ntry a viable map maybe ?(");
 		return (1);
