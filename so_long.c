@@ -17,7 +17,6 @@
 #define WIN_WIDTH 800
 #define WIN_HEIGHT 600
 
-
 int	close_window(void *param)
 {
 	t_game	*game;
@@ -36,7 +35,7 @@ void	draw_tile(t_game *game, int i, int j)
 			game->mlx->assets.grass, j * 80, i * 60);
 	else if (game->map->map[i][j] == '1')
 		mlx_put_image_to_window(game->mlx->mlx_p, game->mlx->win_p,
-			game->mlx->assets.wall, j * 80, i * 60);		
+			game->mlx->assets.wall, j * 80, i * 60);
 	else if (game->map->map[i][j] == 'C')
 		mlx_put_image_to_window(game->mlx->mlx_p, game->mlx->win_p,
 			game->mlx->assets.coin, j * 80, i * 60);
@@ -70,34 +69,34 @@ void	draw_map(t_game *game)
 	free(move);
 }
 
-int check_screen_size(t_mlx *mlx, int map_cols, int map_rows) 
+int	check_screen_size(t_mlx *mlx, int map_cols, int map_rows)
 {
-    int screen_width;
-    int screen_height;
-    
-    mlx_get_screen_size(mlx->mlx_p, &screen_width, &screen_height);
-    if (80 * map_cols > screen_width || 60 * map_rows > screen_height)
-    {
-        perror("Error\nSize matters (");
-        return 1;
-    }
-    return 0;
+	int	screen_width;
+	int	screen_height;
+
+	mlx_get_screen_size(mlx->mlx_p, &screen_width, &screen_height);
+	if (80 * map_cols > screen_width || 60 * map_rows > screen_height)
+	{
+		perror("Error\nSize matters (");
+		return (1);
+	}
+	return (0);
 }
 
 int	main(int argc, char **argv)
 {
 	t_game	*game;
-    
+
 	if (check_and_init(argc, argv, &game) != 0)
 		return (1);
 	init_map(argv, game->map);
 	load_images(game->mlx);
 	init_info(game);
-    if (check_screen_size(game->mlx, game->map->cols, game->map->rows) != 0)
-    {
-        free_resources(game);
-        return 1;
-    }
+	if (check_screen_size(game->mlx, game->map->cols, game->map->rows) != 0)
+	{
+		free_resources(game);
+		return (1);
+	}
 	game->mlx->win_p = mlx_new_window(game->mlx->mlx_p, 80 * game->map->cols, 60
 			* game->map->rows, "So_long");
 	if (!game->mlx->win_p)

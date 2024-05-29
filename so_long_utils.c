@@ -53,7 +53,6 @@ void	move_player(t_game *game, int move_x, int move_y)
 	}
 }
 
-
 int	key_press(int keycode, t_game *game)
 {
 	if (keycode == ESC_KEY)

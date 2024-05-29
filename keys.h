@@ -12,11 +12,11 @@
 
 #ifndef KEYS_H
 
-#define ESC_KEY 65307
-#define KEY_UP 65362
-#define KEY_DOWN 65364
-#define KEY_LEFT 65361
-#define KEY_RIGHT 65363
-#define ESC_KEY 65307
+# define ESC_KEY 65307
+# define KEY_UP 65362
+# define KEY_DOWN 65364
+# define KEY_LEFT 65361
+# define KEY_RIGHT 65363
+# define ESC_KEY 65307
 
 #endif

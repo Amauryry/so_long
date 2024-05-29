@@ -86,7 +86,7 @@ int	check_borders(char **tab_map, int rows, int cols)
 		while (j < cols)
 		{
 			if ((j == 0 || j == cols - 1 || i == 0 || i == rows - 1)
-                && tab_map[i][j] != '1')
+				&& tab_map[i][j] != '1')
 				return (1);
 			j++;
 		}
