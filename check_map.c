@@ -6,7 +6,7 @@
 /*   By: aberion <aberion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 09:20:05 by aberion           #+#    #+#             */
-/*   Updated: 2024/05/27 13:53:48 by aberion          ###   ########.fr       */
+/*   Updated: 2024/06/03 14:08:34 by aberion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,10 @@ int	check_borders(char **tab_map, int rows, int cols)
 		{
 			if ((j == 0 || j == cols - 1 || i == 0 || i == rows - 1)
 				&& tab_map[i][j] != '1')
+				return (1);
+			if (tab_map[i][j] != '1' && tab_map[i][j] != '0'
+				&& tab_map[i][j] != 'P' && tab_map[i][j] != 'C'
+				&& tab_map[i][j] != 'E')
 				return (1);
 			j++;
 		}

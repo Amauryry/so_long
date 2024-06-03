@@ -6,7 +6,7 @@
 /*   By: aberion <aberion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 17:35:10 by aberion           #+#    #+#             */
-/*   Updated: 2024/05/29 12:54:00 by aberion          ###   ########.fr       */
+/*   Updated: 2024/06/03 16:02:06 by aberion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,21 +65,23 @@ void	init_info(t_game *game)
 	game->mlx->height = 0;
 }
 
-void	load_images(t_mlx *mlx)
+void	load_images(t_game *game)
 {
-	mlx->assets.grass = mlx_xpm_file_to_image(mlx->mlx_p, "assets/grass.xpm",
-			&mlx->width, &mlx->height);
-	mlx->assets.wall = mlx_xpm_file_to_image(mlx->mlx_p, "assets/wall.xpm",
-			&mlx->width, &mlx->height);
-	mlx->assets.coin = mlx_xpm_file_to_image(mlx->mlx_p, "assets/coin.xpm",
-			&mlx->width, &mlx->height);
-	mlx->assets.exit = mlx_xpm_file_to_image(mlx->mlx_p, "assets/exit.xpm",
-			&mlx->width, &mlx->height);
-	mlx->assets.chara = mlx_xpm_file_to_image(mlx->mlx_p, "assets/char.xpm",
-			&mlx->width, &mlx->height);
-	if (!mlx->assets.grass || !mlx->assets.wall || !mlx->assets.coin
-		|| !mlx->assets.exit || !mlx->assets.chara)
+	game->mlx->assets.grass = mlx_xpm_file_to_image(game->mlx->mlx_p,
+			"assets/grass.xpm", &game->mlx->width, &game->mlx->height);
+	game->mlx->assets.wall = mlx_xpm_file_to_image(game->mlx->mlx_p,
+			"assets/wall.xpm", &game->mlx->width, &game->mlx->height);
+	game->mlx->assets.coin = mlx_xpm_file_to_image(game->mlx->mlx_p,
+			"assets/coin.xpm", &game->mlx->width, &game->mlx->height);
+	game->mlx->assets.exit = mlx_xpm_file_to_image(game->mlx->mlx_p,
+			"assets/exit.xpm", &game->mlx->width, &game->mlx->height);
+	game->mlx->assets.chara = mlx_xpm_file_to_image(game->mlx->mlx_p,
+			"assets/char.xpm", &game->mlx->width, &game->mlx->height);
+	if (!game->mlx->assets.grass || !game->mlx->assets.wall
+		|| !game->mlx->assets.coin || !game->mlx->assets.exit
+		|| !game->mlx->assets.chara)
 	{
+		free_resources(game);
 		perror("Error\nError loading one or more images");
 		exit(1);
 	}
@@ -104,20 +106,21 @@ int	allocate_game_resources(t_game **game_ptr)
 	game->mlx->mlx_p = mlx_init();
 	if (!game->mlx->mlx_p)
 		return (1);
+	game->mlx->win_p = NULL;
 	*game_ptr = game;
 	return (0);
 }
 
 int	check_and_init(int argc, char **argv, t_game **game)
 {
-	if (argc < 2)
+	if (argc != 2)
 	{
-		perror("Error\nYou should try with a map (");
+		perror("Error\nNo map / too many (");
 		return (1);
 	}
 	if (check_map(argv) != 0 || (!check_file_extension(argv[1], ".ber")))
 	{
-		perror("Error\ntry a viable map maybe ?(");
+		perror("Error\nTry a viable map maybe ?(");
 		return (1);
 	}
 	if (allocate_game_resources(game) != 0)

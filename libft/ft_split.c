@@ -6,13 +6,13 @@
 /*   By: aberion <aberion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 14:02:56 by aberion           #+#    #+#             */
-/*   Updated: 2023/11/16 15:45:45 by aberion          ###   ########.fr       */
+/*   Updated: 2024/06/03 14:00:55 by aberion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	count_words(char const *s, char c)
+ssize_t	count_words(char const *s, char c)
 {
 	size_t	i;
 	size_t	chains;
@@ -21,8 +21,10 @@ size_t	count_words(char const *s, char c)
 	i = 0;
 	while (s[i])
 	{
-		while (s[i] == c)
+		if (s[i] == c)
 			i++;
+		if (s[i] == c)
+			return (-1);
 		if (s[i])
 			chains++;
 		while (s[i] && s[i] != c)
@@ -52,13 +54,15 @@ char	*mettre_mot(const char *s, size_t start, size_t end)
 
 char	**ft_split(char const *s, char c)
 {
-	size_t	i;
-	size_t	j;
+	ssize_t	i;
+	ssize_t	j;
 	size_t	start;
-	size_t	chains;
+	ssize_t	chains;
 	char	**tabchains;
 
 	chains = count_words(s, c);
+	if (chains == -1)
+		return (NULL);
 	tabchains = malloc((chains + 1) * sizeof(char *));
 	if (!tabchains)
 		return (NULL);

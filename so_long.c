@@ -6,7 +6,7 @@
 /*   By: aberion <aberion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 17:07:23 by aberion           #+#    #+#             */
-/*   Updated: 2024/05/27 13:36:49 by aberion          ###   ########.fr       */
+/*   Updated: 2024/06/03 16:57:29 by aberion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,10 @@ void	draw_tile(t_game *game, int i, int j)
 	if (game->map->map[i][j] == '0')
 		mlx_put_image_to_window(game->mlx->mlx_p, game->mlx->win_p,
 			game->mlx->assets.grass, j * 80, i * 60);
+	else if (game->map->map[i][j] == 'E' && (game->info->x == i
+			&& game->info->y == j))
+		mlx_put_image_to_window(game->mlx->mlx_p, game->mlx->win_p,
+			game->mlx->assets.chara, j * 80, i * 60);
 	else if (game->map->map[i][j] == '1')
 		mlx_put_image_to_window(game->mlx->mlx_p, game->mlx->win_p,
 			game->mlx->assets.wall, j * 80, i * 60);
@@ -83,20 +87,19 @@ int	check_screen_size(t_mlx *mlx, int map_cols, int map_rows)
 	return (0);
 }
 
-int	main(int argc, char **argv)
+int	main(int argc, char **argv, char **env)
 {
 	t_game	*game;
 
+	if (env == NULL || *env == NULL)
+		exit(EXIT_FAILURE);
 	if (check_and_init(argc, argv, &game) != 0)
 		return (1);
 	init_map(argv, game->map);
-	load_images(game->mlx);
+	load_images(game);
 	init_info(game);
 	if (check_screen_size(game->mlx, game->map->cols, game->map->rows) != 0)
-	{
-		free_resources(game);
-		return (1);
-	}
+		return (free_resources(game), 1);
 	game->mlx->win_p = mlx_new_window(game->mlx->mlx_p, 80 * game->map->cols, 60
 			* game->map->rows, "So_long");
 	if (!game->mlx->win_p)

@@ -6,7 +6,7 @@
 /*   By: aberion <aberion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 13:36:52 by aberion           #+#    #+#             */
-/*   Updated: 2024/05/27 13:42:38 by aberion          ###   ########.fr       */
+/*   Updated: 2024/06/03 16:00:12 by aberion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	free_mlx_resources(t_mlx *mlx)
 		mlx_destroy_image(mlx->mlx_p, mlx->assets.exit);
 	if (mlx->assets.chara)
 		mlx_destroy_image(mlx->mlx_p, mlx->assets.chara);
-	if (mlx->win_p)
+	if (mlx->mlx_p && mlx->win_p)
 		mlx_destroy_window(mlx->mlx_p, mlx->win_p);
 	if (mlx->mlx_p)
 	{

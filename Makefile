@@ -16,6 +16,9 @@ NAME = so_long
 # Compilateur
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g3
+MINILIBX_LIB = minilibx-linux/libmlx.a
+LIBFT_LIB = libft/libft.a
+FT_PRINTF_LIB = ft_printf/libftprintf
 
 # Include directories
 INCLUDES = -I ./libft -I ./ft_printf -I ./minilibx-linux -I ./get_next_line
@@ -27,25 +30,25 @@ SRC_DIR = src/
 OBJ_DIR = obj/
 
 # Source files and object files
-SRC = so_long.c check_map.c init_utils.c check_map_utils_2.c check_map_utils.c get_next_line/get_next_line.c get_next_line/get_next_line_utils.c init.c free_and_co.c so_long_utils.c
+SRC = so_long.c check_map.c init_utils.c check_map_utils_2.c check_map_utils.c init.c free_and_co.c so_long_utils.c
 OBJ = $(SRC:.c=.o)
 
 # Rules
 all: $(NAME)
 
-$(NAME): libft ft_printf minilibx $(OBJ)
+$(NAME): $(LIBFT_LIB) $(FT_PRINTF_LIB) $(MINILIBX_LIB) $(OBJ)
 	$(CC) $(OBJ) $(LFLAGS) -o $(NAME)
 
 %.o: %.c
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
-libft:
+$(LIBFT_LIB):
 	$(MAKE) -C ./libft
 
-ft_printf:
+$(FT_PRINTF_LIB):
 	$(MAKE) -C ./ft_printf
 
-minilibx:
+$(MINILIBX_LIB):
 	$(MAKE) -C ./minilibx-linux
 
 clean:

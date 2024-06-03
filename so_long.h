@@ -6,7 +6,7 @@
 /*   By: aberion <aberion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 18:10:20 by aberion           #+#    #+#             */
-/*   Updated: 2024/05/29 13:01:32 by aberion          ###   ########.fr       */
+/*   Updated: 2024/06/03 15:44:29 by aberion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,11 +99,12 @@ void			init_info(t_game *game);
 void			free_resources(t_game *game);
 bool			back_tracking(char **tab_map, int x, int y, int *nb_c);
 int				shall_i_pass(char **tab_map, int rows, int cols);
-void			load_images(t_mlx *mlx);
+void			load_images(t_game *game);
 int				check_and_init(int argc, char **argv, t_game **game);
 int				allocate_game_resources(t_game **game_ptr);
 int				key_press(int keycode, t_game *game);
 int				close_window(void *param);
 int				check_file_extension(char *filename, char *extension);
+void			free_mlx_resources(t_mlx *mlx);
 
 #endif
